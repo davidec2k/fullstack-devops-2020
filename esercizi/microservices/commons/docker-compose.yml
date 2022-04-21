@@ -9,6 +9,18 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - HEX-to-RGB
+  
+  HEX-to-RGB:
+    image: hex2rgb
+    restart: "no"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.HEX-to-RGB.rule=PathPrefix(`/HEX-to-RGB`)"
+      - "traefik.http.routers.HEX-to-RGB.middlewares=HEX-to-RGB-stripprefix"
+      - "traefik.http.services.HEX-to-RGB.loadbalancer.server.port=3000"
+      - "traefik.http.middlewares.HEX-to-RGB-stripprefix.stripprefix.prefixes=/HEX-to-RGB"
 
 #  <microservice-example-name>:
 #    build: <microservice-example-name>
