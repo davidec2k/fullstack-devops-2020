@@ -13,7 +13,7 @@ services:
       - HEX-to-RGB
   
   HEX-to-RGB:
-    image: hex2rgb
+    build: hex2rgb
     restart: "no"
     labels:
       - "traefik.enable=true"
