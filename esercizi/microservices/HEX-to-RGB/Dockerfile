@@ -1,7 +1,8 @@
 FROM node:alpine
-COPY package.json /API
-WORKDIR /API
+COPY . .
+WORKDIR /microservices
+COPY ./commons/src/model/Color.ts /HEX-to-RGB
+WORKDIR /microservices/HEX-to-RGB
 RUN npm install
-WORKDIR /API/dist/HEX-to-RGB/src/
 EXPOSE 3000
-CMD ["node","HttpServer.js"]
+CMD npm start
